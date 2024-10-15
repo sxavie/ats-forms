@@ -4,11 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, debounceTime, distinctUntilChanged, map, switchMap, take } from 'rxjs';
 import { UsersTableComponent } from './users-table/users-table.component';
+import { AsyncPipe } from '@angular/common';
+import { IUser } from './user-data.interface';
 
 @Component({
   selector: 'app-reactive-search',
   standalone: true,
-  imports: [UsersTableComponent, ReactiveFormsModule],
+  imports: [UsersTableComponent, ReactiveFormsModule, AsyncPipe],
   templateUrl: './reactive-search.component.html',
   styleUrl: './reactive-search.component.css'
 })
@@ -18,30 +20,26 @@ export class ReactiveSearchComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   placeholderApi = 'https://jsonplaceholder.typicode.com/users';
-
   searchControl = new FormControl('')
-
-  searchUsersData: any = [];
-  searchUsersDataSubs$ = new Observable<any[]>
+  searchData$: Observable<IUser[]> = new Observable();
 
   ngOnInit(): void {
     this.subscribeToSeachValueChange();
   }
 
   subscribeToSeachValueChange() {
-    this.searchControl.valueChanges.pipe(
+    this.searchData$ = this.searchControl.valueChanges.pipe(
       takeUntilDestroyed(this.destroyRef),
       debounceTime(1000),
       distinctUntilChanged(),
       switchMap(value => this.getUsersData(value || ''))
-    ).subscribe(response => this.searchUsersData = response)
+    )
   }
 
   getUsersData(value: string) {
-    return this.searchUsersDataSubs$ = this.http.get<any[]>(this.placeholderApi)
+    return this.http.get<IUser[]>(this.placeholderApi)
       .pipe(
-        take(1),
-        map((data: any) => data.filter((item: any) => item.name.includes(value)))
+        map((data: IUser[]) => data.filter((item: IUser) => item.name.includes(value)))
       )
   }
 

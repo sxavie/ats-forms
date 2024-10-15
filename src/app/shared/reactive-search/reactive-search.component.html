@@ -1,5 +1,5 @@
 <input type="search" [formControl]="searchControl" placeholder="Search user name">
 
-@if( searchUsersData.length > 0 ) {
-    <app-users-table [data]="searchUsersData"></app-users-table>
+@if( searchData$ | async; as userData ) {
+    <app-users-table [data]="userData"></app-users-table>
 }
