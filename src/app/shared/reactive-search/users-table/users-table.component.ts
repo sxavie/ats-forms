@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IUser } from '../user-data.interface';
 
 @Component({
   selector: 'app-users-table',
@@ -8,5 +9,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './users-table.component.css'
 })
 export class UsersTableComponent {
-  @Input('data') users: any = [];
+  @Input('data') users: IUser[] | undefined;
 }
