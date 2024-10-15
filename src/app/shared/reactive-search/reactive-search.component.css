@@ -1,0 +1,7 @@
+  input {
+    border: 1px solid #ccc;
+    padding: .5em;
+    font-size: 1em;
+    width: calc(100% - 1em);
+    border-radius: 5px;
+  }

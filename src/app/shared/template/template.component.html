@@ -1,0 +1,28 @@
+<h1> Template-driven Forms </h1>
+
+<form #loginForm="ngForm" (ngSubmit)="login(loginForm)" >
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" 
+            ngModel required>
+    </div>
+
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" 
+            ngModel required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}"  />
+    </div>
+
+    <div>
+        <button type="submit" style="width:100%">Login</button>
+    </div>
+</form>
+
+
+
+<!-- <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}" title="La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial."> -->
+<!--    Tenga al menos una letra mayúscula ((?=.*[A-Z]))
+        Tenga al menos una letra minúscula ((?=.*[a-z]))    
+        Tenga al menos un número ((?=.*\d))
+        Tenga al menos un carácter especial ((?=.*[\W_]))
+        Sea de al menos 8 caracteres de longitud (.{8,}) -->

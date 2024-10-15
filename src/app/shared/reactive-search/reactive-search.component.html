@@ -1,0 +1,5 @@
+<input type="search" [formControl]="searchControl" placeholder="Search user name">
+
+@if( searchUsersData.length > 0 ) {
+    <app-users-table [data]="searchUsersData"></app-users-table>
+}

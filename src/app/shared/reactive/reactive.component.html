@@ -1,0 +1,15 @@
+<h1>Reactive Forms!</h1>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" formControlName="name">
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="text" id="password" formControlName="password">
+    </div>
+    <div>
+        <button type="submit" style="width:100%">Login</button>
+    </div>
+</form>
